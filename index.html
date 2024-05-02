@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pizza Booking</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        #orderSummary {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to our Pizza Shop</h1>
+
+    <h2>Choose your pizza:</h2>
+    <select id="pizza">
+        <option value="10">Margherita ($10)</option>
+        <option value="12">Pepperoni ($12)</option>
+        <option value="15">Supreme ($15)</option>
+        <!-- Add more options as needed -->
+    </select>
+
+    <h2>Choose your toppings:</h2>
+    <input type="checkbox" id="cheese" value="1">Extra Cheese ($1)<br>
+    <input type="checkbox" id="pepperoni" value="1">Extra Pepperoni ($1)<br>
+    <!-- Add more options as needed -->
+
+    <h2>Enter your payment information:</h2>
+    Card Name: <input type="text" id="cardName"><br>
+    Card Number: <input type="text" id="cardNumber" maxlength="16"><br>
+    CCV: <input type="text" id="ccv" maxlength="3"><br>
+    Expiry Date: <input type="text" id="expiryDate" placeholder="MM/YY"><br>
+
+    <button onclick="placeOrder()">Place Order</button>
+  
+    <div id="orderSummary">
+        <h2>Order Summary:</h2>
+        <p id="summaryText"></p>
+    </div>
+
+    <script>
+        function placeOrder() {
+            var pizzaPrice = document.getElementById("pizza").value;
+            var cheese = document.getElementById("cheese").checked ? document.getElementById("cheese").value : 0;
+            var pepperoni = document.getElementById("pepperoni").checked ? document.getElementById("pepperoni").value : 0;
+
+            var totalPrice = parseInt(pizzaPrice) + parseInt(cheese) + parseInt(pepperoni) + 5; // $5 delivery fee
+
+            var cardName = document.getElementById("cardName").value;
+            var cardNumber = document.getElementById("cardNumber").value;
+            var ccv = document.getElementById("ccv").value;
+            var expiryDate = document.getElementById("expiryDate").value;
+
+            // Check if payment information is filled
+            if (cardName && cardNumber && ccv && expiryDate) {
+                // Display the order summary
+                document.getElementById("orderSummary").style.display = "block";
+                document.getElementById("summaryText").textContent = "Thank you for your order. The total price is $" + totalPrice + " including tax and delivery fee. Your pizza will be delivered in 30-45 minutes. Order placed successfully!";
+            } else {
+                alert("Please fill all the payment information.");
+            }
+        }
+    </script>
+</body>
+</html>
